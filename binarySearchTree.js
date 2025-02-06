@@ -1,4 +1,3 @@
-
 class Node {
   #data;
   #left;
@@ -33,4 +32,22 @@ class Node {
     this.left = null;
     this.right = null;
   }
+}
+
+class Tree {
+  #root;
+
+  get root() {
+    return this.#root;
+  }
+
+  set root(root) {
+    this.#root = root;
+  }
+
+  constructor(array) {
+    this.root = this.buildTree();
+  }
+
+  buildTree(array) {}
 }

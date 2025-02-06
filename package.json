@@ -1,0 +1,20 @@
+{
+  "name": "binary-search-trees",
+  "version": "1.0.0",
+  "description": "This is my implementation of a binary search tree",
+  "main": "binarySearchTree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebrahiemfrancis741/binary-search-trees.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebrahiemfrancis741/binary-search-trees/issues"
+  },
+  "homepage": "https://github.com/ebrahiemfrancis741/binary-search-trees#readme"
+}
