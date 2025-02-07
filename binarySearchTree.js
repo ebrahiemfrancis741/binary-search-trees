@@ -61,13 +61,35 @@ class Tree {
     if (array.length == 1) {
       return new Node(array[0]);
     } else if (array.length == 0) {
-      return new Node(null);
+      return null;
     } else {
       let midpoint = Math.floor(array.length / 2);
       let root = new Node(array[midpoint]);
       root.left = this.buildTree(array.slice(0, midpoint));
       root.right = this.buildTree(array.slice(midpoint + 1));
       return root;
+    }
+  }
+
+  insert(value) {
+    let node = this.root;
+    let parentNode;
+    while (node != null) {
+      if (value < node.data) {
+        // go left
+        parentNode = node;
+        node = node.left;
+        if (node == null) {
+          parentNode.left = new Node(value);
+        }
+      } else {
+        // go right
+        parentNode = node;
+        node = node.right;
+        if (node == null) {
+          parentNode.right = new Node(value);
+        }
+      }
     }
   }
 }
@@ -87,6 +109,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+  bst.insert(2);
   prettyPrint(bst.root);
 } catch (error) {
   console.log(error.message);
