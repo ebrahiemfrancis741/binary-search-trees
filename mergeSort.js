@@ -20,4 +20,4 @@ function mergeSort(arr) {
   return sorted.concat(left.slice(i), right.slice(j));
 }
 
-console.log(mergeSort([4,2,9,3]));
+export { mergeSort };

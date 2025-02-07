@@ -1,6 +1,7 @@
 {
   "name": "binary-search-trees",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is my implementation of a binary search tree",
   "main": "binarySearchTree.js",
   "scripts": {
