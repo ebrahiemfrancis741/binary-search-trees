@@ -75,7 +75,10 @@ class Tree {
     let node = this.root;
     let parentNode;
     while (node != null) {
-      if (value < node.data) {
+      // don't add duplicate values
+      if (value == node.data) {
+        return;
+      } else if (value < node.data) {
         // go left
         parentNode = node;
         node = node.left;
@@ -91,6 +94,64 @@ class Tree {
         }
       }
     }
+  }
+
+  deleteItem(value) {
+    let node = this.root;
+    let parentNode = null;
+    // loop until node == null which means value does not exist
+    // or if we find a value, break out of the loop
+    while (node != null) {
+      if (node.data == value) break;
+      else if (value > node.data) {
+        parentNode = node;
+        node = node.right;
+      } else {
+        parentNode = node;
+        node = node.left;
+      }
+    }
+    if (node != null) {
+      if (!node.left && !node.right) {
+        // leaf node, 0 children
+        if (!parentNode.left) parentNode.right = null;
+        else parentNode.left = null;
+      } else if ((node.left && !node.right) || (!node.left && node.right)) {
+        // 1 child
+        if (parentNode.left == node) {
+          // target node is on the left
+          // if single child node is on the left
+          if (node.left) parentNode.left = node.left;
+          // if single child node is on the right
+          else parentNode.left = node.right;
+        } else {
+          // target node is on the right
+          // if single child node is on the left
+          if (node.left) parentNode.right = node.left;
+          // if single child node is on the right
+          else parentNode.right = node.right;
+        }
+      } else {
+        // 2 children
+        /* 
+          we will choose the right tree to get the lowest value 
+          to replace this node with.
+        */
+        let replacingNode = node.right;
+        let replacingNodeParent;
+        // loop until we find the smallest number
+        while (replacingNode.left != null) {
+          replacingNodeParent = replacingNode;
+          replacingNode = replacingNode.left;
+        }
+        /*
+          make the target nodes data equal to the smallest number 
+          on the right subtree and remove that smallest number 
+        */
+        node.data = replacingNode.data;
+        replacingNodeParent.left = null;
+      }
+    } else throw new Error("value not found");
   }
 }
 
@@ -110,6 +171,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
+  prettyPrint(bst.root);
+  bst.deleteItem(67);
   prettyPrint(bst.root);
 } catch (error) {
   console.log(error.message);
