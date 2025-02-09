@@ -163,6 +163,22 @@ class Tree {
     }
     return null;
   }
+
+  levelOrder(callback) {
+    if (callback == undefined || !(callback instanceof Function))
+      throw new Error("callback function is required");
+    else {
+      let node = this.root;
+      let queue = [];
+      queue.push(node);
+      while (queue.length > 0) {
+        callback(queue[0]);
+        if (queue[0].left) queue.push(queue[0].left);
+        if (queue[0].right) queue.push(queue[0].right);
+        queue.shift();
+      }
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -182,8 +198,11 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  let node = bst.find(324);
-  if(node) console.log(`found value: ${node.data}`);
+  bst.levelOrder((node)=>{
+    console.log(`node data: ${node.data}`);
+  });
+  // let node = bst.find(324);
+  // if (node) console.log(`found value: ${node.data}`);
 } catch (error) {
   console.log(error.message);
 }
