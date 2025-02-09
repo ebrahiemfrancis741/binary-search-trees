@@ -153,6 +153,16 @@ class Tree {
       }
     } else throw new Error("value not found");
   }
+
+  find(value) {
+    let node = this.root;
+    while (node != null) {
+      if (node.data == value) return node;
+      else if (value > node.data) node = node.right;
+      else node = node.left;
+    }
+    return null;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -172,8 +182,8 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  bst.deleteItem(67);
-  prettyPrint(bst.root);
+  let node = bst.find(324);
+  if(node) console.log(`found value: ${node.data}`);
 } catch (error) {
   console.log(error.message);
 }
