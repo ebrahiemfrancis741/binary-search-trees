@@ -179,6 +179,24 @@ class Tree {
       }
     }
   }
+
+  preOrder(callback) {
+    if (callback == undefined || !(callback instanceof Function)) {
+      throw new Error("callback function is required");
+    } else {
+      //nlr
+      function traverse(node, callback) {
+        if (node == null) {
+          return;
+        } else {
+          callback(node);
+          traverse(node.left, callback);
+          traverse(node.right, callback);
+        }
+      }
+      traverse(this.root, callback);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -198,9 +216,12 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  bst.levelOrder((node)=>{
+  bst.preOrder((node) => {
     console.log(`node data: ${node.data}`);
   });
+  // bst.levelOrder((node) => {
+  //   console.log(`node data: ${node.data}`);
+  // });
   // let node = bst.find(324);
   // if (node) console.log(`found value: ${node.data}`);
 } catch (error) {
