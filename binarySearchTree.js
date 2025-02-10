@@ -233,6 +233,18 @@ class Tree {
       traverse(this.root, callback);
     }
   }
+
+  height(node) {
+    if (node == null) {
+      return -1;
+    } else if (node.left == null && node.right == null) {
+      return 0;
+    } else {
+      let leftHeight = this.height(node.left) + 1;
+      let rightHeight = this.height(node.right) + 1;
+      return Math.max(leftHeight, rightHeight);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -252,8 +264,9 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
+  console.log(bst.height(bst.r));
   bst.postOrder((node) => {
-    console.log(`node data: ${node.data}`);
+    console.log(`node data, node height: ${node.data}, ${bst.height(node)}`);
   });
   // bst.levelOrder((node) => {
   //   console.log(`node data: ${node.data}`);
