@@ -245,6 +245,23 @@ class Tree {
       return Math.max(leftHeight, rightHeight);
     }
   }
+
+  depth(node) {
+    let currentNode = this.root;
+    let count = 0;
+    while (node != null) {
+      if ((node.data == currentNode.data)) {
+        return count;
+      } else if (node.data < currentNode.data) {
+        currentNode = currentNode.left;
+        count++;
+      } else {
+        currentNode = currentNode.right;
+        count++;
+      }
+    }
+    throw new Error("Cant't find depth of node, it does not exist in tree");
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -264,9 +281,8 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  console.log(bst.height(bst.r));
   bst.postOrder((node) => {
-    console.log(`node data, node height: ${node.data}, ${bst.height(node)}`);
+    console.log(`node data, node depth: ${node.data}, ${bst.depth(node)}`);
   });
   // bst.levelOrder((node) => {
   //   console.log(`node data: ${node.data}`);
