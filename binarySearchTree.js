@@ -263,7 +263,7 @@ class Tree {
 
   isBalanced(root) {
     if (checkHeight(root) != -1) return true;
-    else return false
+    else return false;
 
     function checkHeight(node) {
       if (node == null) return 0;
@@ -274,6 +274,15 @@ class Tree {
       if (abs(leftHeight - rightHeight) > 1) return -1;
       else return max(leftHeight, rightHeight) + 1;
     }
+  }
+
+  rebalance() {
+    let array = [];
+    this.inOrder((node) => {
+      array.push(node.data);
+    });
+    console.log(array);
+    this.root = this.buildTree(array);
   }
 }
 
@@ -294,11 +303,13 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  if (bst.isBalanced()) {
-    console.log("balanced");
-  } else {
-    console.log("not balanced");
-  }
+  bst.rebalance();
+  prettyPrint(bst.root);
+  // if (bst.isBalanced()) {
+  //   console.log("balanced");
+  // } else {
+  //   console.log("not balanced");
+  // }
   // bst.levelOrder((node) => {
   //   console.log(`node data, node depth: ${node.data}, ${bst.depth(node)}`);
   // });
