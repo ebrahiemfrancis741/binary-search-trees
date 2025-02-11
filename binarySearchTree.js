@@ -281,7 +281,6 @@ class Tree {
     this.inOrder((node) => {
       array.push(node.data);
     });
-    console.log(array);
     this.root = this.buildTree(array);
   }
 }
@@ -299,25 +298,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-try {
-  let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-  bst.insert(2);
-  prettyPrint(bst.root);
-  bst.rebalance();
-  prettyPrint(bst.root);
-  // if (bst.isBalanced()) {
-  //   console.log("balanced");
-  // } else {
-  //   console.log("not balanced");
-  // }
-  // bst.levelOrder((node) => {
-  //   console.log(`node data, node depth: ${node.data}, ${bst.depth(node)}`);
-  // });
-  // bst.levelOrder((node) => {
-  //   console.log(`node data: ${node.data}`);
-  // });
-  // let node = bst.find(324);
-  // if (node) console.log(`found value: ${node.data}`);
-} catch (error) {
-  console.log(error.message);
-}
+export { Tree, prettyPrint };
