@@ -237,8 +237,6 @@ class Tree {
   height(node) {
     if (node == null) {
       return -1;
-    } else if (node.left == null && node.right == null) {
-      return 0;
     } else {
       let leftHeight = this.height(node.left) + 1;
       let rightHeight = this.height(node.right) + 1;
@@ -250,7 +248,7 @@ class Tree {
     let currentNode = this.root;
     let count = 0;
     while (node != null) {
-      if ((node.data == currentNode.data)) {
+      if (node.data == currentNode.data) {
         return count;
       } else if (node.data < currentNode.data) {
         currentNode = currentNode.left;
@@ -261,6 +259,21 @@ class Tree {
       }
     }
     throw new Error("Cant't find depth of node, it does not exist in tree");
+  }
+
+  isBalanced(root) {
+    if (checkHeight(root) != -1) return true;
+    else return false
+
+    function checkHeight(node) {
+      if (node == null) return 0;
+      let leftHeight = checkHeight(node.left);
+      if (leftHeight == -1) return -1;
+      let rightHeight = checkHeight(node.right);
+      if (rightHeight == -1) return -1;
+      if (abs(leftHeight - rightHeight) > 1) return -1;
+      else return max(leftHeight, rightHeight) + 1;
+    }
   }
 }
 
@@ -281,9 +294,14 @@ try {
   let bst = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
   bst.insert(2);
   prettyPrint(bst.root);
-  bst.postOrder((node) => {
-    console.log(`node data, node depth: ${node.data}, ${bst.depth(node)}`);
-  });
+  if (bst.isBalanced()) {
+    console.log("balanced");
+  } else {
+    console.log("not balanced");
+  }
+  // bst.levelOrder((node) => {
+  //   console.log(`node data, node depth: ${node.data}, ${bst.depth(node)}`);
+  // });
   // bst.levelOrder((node) => {
   //   console.log(`node data: ${node.data}`);
   // });
